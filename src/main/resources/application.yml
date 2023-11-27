@@ -1,0 +1,57 @@
+jdbc:
+  url: jdbc:postgresql://localhost:3306/
+  username: root
+  password: root
+welcome:
+  message: welcome
+server:
+  error:
+    path: /error
+  port: 9000
+
+# Настройки по умолчанию для всех профилей
+spring:
+  datasource:
+    url: jdbc:h2:mem:testdb  # URL замени
+    driver-class-name: org.h2.Driver
+    username: sa
+    password:
+  jpa:
+    hibernate:
+      ddl-auto: update
+    show-sql: true
+
+
+# Настройки для профиля local
+---
+spring:
+  config:
+    activate:
+      on-profile: local
+  h2:
+    console:
+      enabled: true
+
+
+# Налаштування для профілю prod
+---
+spring:
+  config:
+    activate:
+      on-profile: prod
+  datasource:
+    url: jdbc:mysql://localhost:3306/?user=root
+    driver-class-name: org.postgresql.Driver
+    username: root
+    password: root
+  jpa:
+    hibernate:
+      ddl-auto: update
+    show-sql: false
+---
+spring:
+  sql:
+    init:
+      platform: h2
+      data-locations: classpath:data-h2.sql
+      schema-locations: classpath:schema-h2.sql
