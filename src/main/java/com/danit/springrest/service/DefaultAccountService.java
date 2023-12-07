@@ -1,6 +1,6 @@
 package com.danit.springrest.service;
 
-import com.danit.springrest.dao.AccountDao;
+import com.danit.springrest.dao.AccountRepository;
 import com.danit.springrest.enums.Currency;
 import com.danit.springrest.model.Account;
 import com.danit.springrest.model.Customer;
@@ -9,46 +9,54 @@ import org.springframework.stereotype.Service;
 import java.util.List;
 @Service
 public class DefaultAccountService implements AccountService{
-    private final AccountDao accountDao;
+    private final AccountRepository accountRepository;
 
-    public DefaultAccountService(AccountDao accountDao) {
-        this.accountDao = accountDao;
+    public DefaultAccountService(AccountRepository accountRepository) {
+        this.accountRepository = accountRepository;
     }
 
     @Override
     public Account createAccountForCustomer(Customer customer, Currency currency) {
         Account newAccount = new Account(currency, customer);
-        accountDao.save(newAccount);
+        accountRepository.save(newAccount);
         return newAccount;
     }
-
+    @Override
+    public Account createAccount(Account account){
+        return accountRepository.save(account);
+    }
     @Override
     public void deleteAccount(String accountId) {
-        accountDao.delete(accountId);
+        accountRepository.deleteById(Long.valueOf(accountId));
     }
 
     @Override
     public void updateAccount(String accountId, Account updatedAccount) {
-        accountDao.update(updatedAccount);
+        if (accountRepository.existsById(Long.valueOf(accountId))) {
+            updatedAccount.setId(Long.valueOf(accountId));
+            accountRepository.save(updatedAccount);
+        } else {
+            throw new IllegalArgumentException("Account not found with ID: " + accountId);
+        }
     }
 
     @Override
     public Account getAccountById(String accountId) {
-        return accountDao.getById(accountId);
+        return accountRepository.findById(Long.valueOf(accountId)).orElse(null);
     }
 
     @Override
     public List<Account> getAllAccounts() {
-        return accountDao.getAll();
+        return accountRepository.findAll();
     }
     @Override
     public void depositMoney(String accountId, double amount) {
-        Account account = accountDao.getById(accountId);
+        Account account = accountRepository.findById(Long.valueOf(accountId)).orElse(null);
         if (account != null) {
             double currentBalance = account.getBalance();
             double newBalance = currentBalance + amount;
             account.setBalance(newBalance);
-            accountDao.update(account);
+            accountRepository.save(account);
         } else {
             throw new IllegalArgumentException("Account not found with ID: " + accountId);
         }
@@ -56,13 +64,13 @@ public class DefaultAccountService implements AccountService{
 
     @Override
     public void withdrawMoney(String accountId, double amount) {
-        Account account = accountDao.getById(accountId);
+        Account account = accountRepository.findById(Long.valueOf(accountId)).orElse(null);
         if (account != null) {
             double currentBalance = account.getBalance();
             if (currentBalance >= amount) {
                 double newBalance = currentBalance - amount;
                 account.setBalance(newBalance);
-                accountDao.update(account);
+                accountRepository.save(account);
             } else {
                 throw new IllegalArgumentException("Insufficient funds in account with ID: " + accountId);
             }

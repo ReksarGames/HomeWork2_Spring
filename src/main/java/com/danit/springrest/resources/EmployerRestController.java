@@ -8,6 +8,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
@@ -26,6 +27,11 @@ public class EmployerRestController {
         employerService.createEmployer(newEmployer);
         return new ResponseEntity<>(HttpStatus.CREATED);
     }
-
-    // Другие методы контроллера
+    @PostMapping("/createManual")
+    public ResponseEntity<Void> createEmployerManual(
+            @RequestParam String employeeName,
+            @RequestParam String employeeAddress) {
+        employerService.createEmployerManual(employeeName, employeeAddress);
+        return new ResponseEntity<>(HttpStatus.CREATED);
+    }
 }

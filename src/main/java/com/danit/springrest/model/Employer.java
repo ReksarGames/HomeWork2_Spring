@@ -1,5 +1,6 @@
 package com.danit.springrest.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.*;
 
@@ -7,16 +8,13 @@ import java.util.List;
 import java.util.UUID;
 @Entity
 @Table(name = "employers")
-@NoArgsConstructor
 @Setter
 @Getter
-@EqualsAndHashCode(of = "id", callSuper = false)
+@NoArgsConstructor
+@ToString(exclude = {"customers"})
+@EqualsAndHashCode(of={"id"}, callSuper = true)
 public class Employer extends AbstractEntity {
-
-    @Id
-    @Column(name = "employer_id")
-    private Long id;
-
+    @JsonIgnore
     @Column(name = "name", nullable = false)
     private String name;
 
@@ -25,14 +23,11 @@ public class Employer extends AbstractEntity {
 
     @OneToMany(mappedBy = "employer", cascade = CascadeType.ALL)
     private List<Customer> customers;
+    @Id
+    private Long id;
 
     public Employer(String name, String address) {
         this.name = name;
         this.address = address;
     }
-
-    public void setId(Long id) {
-        this.id = id;
-    }
-
 }

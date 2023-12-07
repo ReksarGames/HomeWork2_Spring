@@ -1,9 +1,20 @@
 package com.danit.springrest.enums;
+import com.fasterxml.jackson.annotation.JsonValue;
+
 
 public enum Currency {
-    USD, // Долар США
-    EUR, // Євро
-    UAH, // Українська гривня
-    CHF, // Швейцарський франк
-    GBP  // Фунт стерлінгів
+    USD("USD"),
+    EUR("EUR"),
+    UAH("UAH"),
+    CHF("CHF"),
+    GBP("GBP");
+    private String value;
+    Currency(String value) {
+        this.value = value;
+    }
+
+    @JsonValue
+    public String getValue() {
+        return value;
+    }
 }

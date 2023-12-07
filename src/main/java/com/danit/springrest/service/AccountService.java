@@ -12,6 +12,7 @@ public interface AccountService {
     void updateAccount(String accountId, Account updatedAccount);
     Account getAccountById(String accountId);
     List<Account> getAllAccounts();
+    Account createAccount(Account account);
     void depositMoney(String accountId, double amount);
     void withdrawMoney(String accountId, double amount);
     void transferMoney(String fromAccountId, String toAccountId, double amount);

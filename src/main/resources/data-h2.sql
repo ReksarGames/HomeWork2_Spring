@@ -1,11 +1,10 @@
-INSERT INTO public.customers (name, email, age) VALUES
-    ('Ivan Petrenko', 'ivanpetrenko@mail.com', 22),
-    ('Oksana Petrenko', 'oksanapetrenko@mail.com', 21),
-    ('Sergiy Stepanenko', 'sergiystepanenko@mail.com', 24),
-    ('Galyna Stepanenko', 'galynastepanenko@mail.com', 23),
-    ('Petro Ivanenko', 'petroivanenko@mail.com', 23),
-    ('Natalya Ivanenko', 'natalyaivanenko@mail.com', 22);
-
+INSERT INTO public.customers (name, email, age, phone_numbers, password) VALUES
+    ('Ivan Petrenko', 'ivanpetrenko@mail.com', 22, 3, 'password'),
+    ('Oksana Petrenko', 'oksanapetrenko@mail.com', 21, 3, 'password'),
+    ('Sergiy Stepanenko', 'sergiystepanenko@mail.com', 24, 3, 'password'),
+    ('Galyna Stepanenko', 'galynastepanenko@mail.com', 23, 3, 'password'),
+    ('Petro Ivanenko', 'petroivanenko@mail.com', 23, 3, 'password'),
+    ('Natalya Ivanenko', 'natalyaivanenko@mail.com', 22, 3, 'password');
 INSERT INTO accounts
     (number, currency, balance, customer_id)
     VALUES

@@ -1,25 +1,28 @@
-jdbc:
-  url: jdbc:postgresql://localhost:3306/
-  username: root
-  password: root
+spring:
+  profiles:
+    active: prod
+#logging:
+#  level:
+#    org: DEBUG
+#    com: DEBUG
 welcome:
   message: welcome
 server:
   error:
     path: /error
   port: 9000
-
+---
 # Настройки по умолчанию для всех профилей
 spring:
-  datasource:
-    url: jdbc:h2:mem:testdb  # URL замени
-    driver-class-name: org.h2.Driver
-    username: sa
-    password:
   jpa:
     hibernate:
       ddl-auto: update
     show-sql: true
+  sql:
+    init:
+      platform: h2
+      data-locations: classpath:data-h2.sql
+      schema-locations: classpath:schema-h2.sql
 
 
 # Настройки для профиля local
@@ -28,10 +31,30 @@ spring:
   config:
     activate:
       on-profile: local
+  logging:
+    level:
+      org.hibernate: DEBUG
   h2:
     console:
       enabled: true
-
+      settings:
+        trace: on
+  sql:
+    init:
+      mode: always
+  datasource:
+    url: jdbc:h2:mem:testdb
+    username: sa
+    password:
+    driver-class-name: org.h2.Driver
+  jpa:
+    database-platform: org.hibernate.dialect.H2Dialect
+    defer-datasource-initialization: false
+    show-sql: true
+    hibernate:
+      id:
+        new_generator_mappings: true
+      ddl-auto: none # Этот параметр указывает Hibernate не выполнять автоматическую генерацию DDL-скриптов
 
 # Налаштування для профілю prod
 ---
@@ -39,19 +62,24 @@ spring:
   config:
     activate:
       on-profile: prod
-  datasource:
-    url: jdbc:mysql://localhost:3306/?user=root
-    driver-class-name: org.postgresql.Driver
-    username: root
-    password: root
-  jpa:
-    hibernate:
-      ddl-auto: update
-    show-sql: false
----
-spring:
+  h2:
+    console:
+      enabled: false
+      settings:
+        trace: false
   sql:
     init:
-      platform: h2
-      data-locations: classpath:data-h2.sql
-      schema-locations: classpath:schema-h2.sql
+      mode: never
+    datasource:
+      url: jdbc:mysql://localhost:3306/
+      driver-class-name: com.mysql.cj.jdbc.Driver
+      username: root
+      password: root
+  jpa:
+    defer-datasource-initialization: false
+    database-platform: org.hibernate.dialect.MySQLDialect
+    show-sql: true
+    hibernate:
+      id:
+        new_generator_mappings: true
+      ddl-auto: update

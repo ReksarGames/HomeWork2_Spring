@@ -1,11 +1,11 @@
 BEGIN;
 
-INSERT INTO customers (name, email, age) VALUES ('Ivan Petrenko', 'ivanpetrenko@mail.com', 22);
-INSERT INTO customers (name, email, age) VALUES ('Oksana Petrenko', 'oksanapetrenko@mail.com', 21);
-INSERT INTO customers (name, email, age) VALUES ('Petro Ivanenko', 'petroivanenko@mail.com', 23);
-INSERT INTO customers (name, email, age) VALUES ('Natalya Ivanenko', 'natalyaivanenko@mail.com', 22);
-INSERT INTO customers (name, email, age) VALUES ('Sergiy Stepanenko', 'sergiystepanenko@mail.com', 24);
-INSERT INTO customers (name, email, age) VALUES ('Galyna Stepanenko', 'galynastepanenko@mail.com', 23);
+INSERT INTO customers (name, email, age, phone_numbers, password) VALUES ('Ivan Petrenko', 'ivanpetrenko@mail.com', 22, 3, 'password');
+INSERT INTO customers (name, email, age, phone_numbers, password) VALUES ('Oksana Petrenko', 'oksanapetrenko@mail.com', 21, 3, 'password');
+INSERT INTO customers (name, email, age, phone_numbers, password) VALUES ('Petro Ivanenko', 'petroivanenko@mail.com', 23, 3, 'password');
+INSERT INTO customers (name, email, age, phone_numbers, password) VALUES ('Natalya Ivanenko', 'natalyaivanenko@mail.com', 22, 3, 'password');
+INSERT INTO customers (name, email, age, phone_numbers, password) VALUES ('Sergiy Stepanenko', 'sergiystepanenko@mail.com', 24, 3, 'password');
+INSERT INTO customers (name, email, age, phone_numbers, password) VALUES ('Galyna Stepanenko', 'galynastepanenko@mail.com', 23, 3, 'password');
 
 
 INSERT INTO accounts

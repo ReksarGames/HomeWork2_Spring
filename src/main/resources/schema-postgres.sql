@@ -3,7 +3,9 @@ CREATE TABLE customers (
                                id SERIAL PRIMARY KEY,
                                name VARCHAR(250) NOT NULL,
                                email VARCHAR(250) NOT NULL,
-                               age INTEGER NOT NULL
+                               age INTEGER NOT NULL,
+                               phone_numbers INTEGER NOT NULL,
+                               password VARCHAR(250) NOT NULL
 );
 
 DROP TABLE IF EXISTS accounts CASCADE;

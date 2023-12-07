@@ -3,7 +3,9 @@ CREATE TABLE public.customers (
                                id INT AUTO_INCREMENT  PRIMARY KEY,
                                name VARCHAR(250) NOT NULL,
                                email VARCHAR(250) NOT NULL,
-                               age INT NOT NULL
+                               age INT NOT NULL,
+                               phone_numbers INT NOT NULL,
+                               password VARCHAR(250) NOT NULL
 );
 
 DROP TABLE IF EXISTS accounts CASCADE;
@@ -28,5 +30,4 @@ CREATE TABLE public.customerEmployment (
                        customer_id INTEGER REFERENCES customers (id) NOT NULL,
                        employer_id INTEGER REFERENCES employers (id) NOT NULL
 );
-
 

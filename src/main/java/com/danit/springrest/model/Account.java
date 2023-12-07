@@ -1,8 +1,10 @@
 package com.danit.springrest.model;
 
 import com.danit.springrest.enums.Currency;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import jakarta.persistence.*;
@@ -14,13 +16,11 @@ import java.util.UUID;
 @Table(name = "accounts")
 @Getter
 @Setter
-@EqualsAndHashCode(of = "id", callSuper = false)
+@NoArgsConstructor
+@EqualsAndHashCode(of={"id"}, callSuper = true)
 public class Account extends AbstractEntity {
-
     @Id
-    @Column(name = "account_id")
     private Long id;
-
     @Column(name = "number", nullable = false, unique = true)
     private String number;
 
@@ -32,22 +32,16 @@ public class Account extends AbstractEntity {
     private Double balance;
 
     @ManyToOne
+    @JsonIgnore
     @JoinColumn(name = "customer_id", nullable = false)
     private Customer customer;
 
-
     public Account(Currency currency, Customer customer) {
-        this.id = generateUniqueId();
         this.number = generateAccountNumber();
         this.currency = currency;
         this.balance = 0.0;
         this.customer = customer;
     }
-    public Account(){}
-    private Long generateUniqueId() {
-        return UUID.randomUUID().getMostSignificantBits() & Long.MAX_VALUE;
-    }
-
     private String generateAccountNumber() {
         return UUID.randomUUID().toString();
     }

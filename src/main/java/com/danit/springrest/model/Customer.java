@@ -10,14 +10,20 @@ import java.util.List;
 @NoArgsConstructor
 @Setter
 @Getter
+@NamedEntityGraph(name = "customerWithAccountsAndEmployers",
+        attributeNodes = {@NamedAttributeNode("accounts"), @NamedAttributeNode("employers")})
 public class Customer extends AbstractEntity {
-
     @Id
-    @Column(name = "customer_id")
+    @Column(name = "customer_id", nullable = false)
     private Long id;
-
-    @Column(name = "firstName", nullable = false)
+    @Column(name = "name", nullable = false)
     private String name;
+
+    @Column(name = "password", nullable = false)
+    private String password;
+
+    @Column(name = "phone_numbers", nullable = false)
+    private String phoneNumbers;
 
     @Column(name = "email", nullable = false)
     private String email;
@@ -25,8 +31,22 @@ public class Customer extends AbstractEntity {
     @Column(name = "age", nullable = false)
     private int age;
 
-    @OneToMany(mappedBy = "customer", cascade = CascadeType.ALL)
+    @OneToMany
+    @JoinColumn(name = "CUSTOMER_ID")
     private List<Account> accounts;
+
+    @ManyToMany(cascade = {
+            CascadeType.DETACH,
+            CascadeType.MERGE,
+            CascadeType.REFRESH,
+            CascadeType.PERSIST})
+
+
+    @JoinTable(name = "CUSTOMEREMPLOYMENT",
+            joinColumns = @JoinColumn(name = "customer_id"),
+            inverseJoinColumns = @JoinColumn(name = "employer_id"))
+    private List<Employer> employers;
+
 
     @ManyToOne
     @JoinColumn(name = "employer_id")
@@ -37,6 +57,13 @@ public class Customer extends AbstractEntity {
         this.name = name;
         this.email = email;
         this.age = age;
+    }
+    public Customer(String name, String email, Integer age, List<Account> accounts, List<Employer> employers) {
+        this.name = name;
+        this.email = email;
+        this.age = age;
+        this.accounts = accounts;
+        this.employers = employers;
     }
 
 }

@@ -4,13 +4,16 @@ import io.swagger.v3.oas.models.OpenAPI;
 import io.swagger.v3.oas.models.info.Contact;
 import io.swagger.v3.oas.models.info.Info;
 import io.swagger.v3.oas.models.info.License;
+import org.modelmapper.ModelMapper;
 import org.springframework.boot.ApplicationArguments;
 import org.springframework.boot.ApplicationRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.Bean;
+import org.springframework.data.jpa.repository.config.EnableJpaAuditing;
 
 @SpringBootApplication
+@EnableJpaAuditing
 public class BootRestApplication implements ApplicationRunner {
 
     public static void main(String[] args) {
@@ -20,8 +23,12 @@ public class BootRestApplication implements ApplicationRunner {
     @Override public void run(ApplicationArguments args) throws Exception {
         System.out.println("http://localhost:9000/swagger-ui/index.html");
         System.out.println("http://localhost:9000/h2-console");
-    }
 
+    }
+    @Bean
+    public ModelMapper modelMapper() {
+        return new ModelMapper();
+    }
     @Bean
     public OpenAPI springShopOpenAPI() {
         return new OpenAPI()

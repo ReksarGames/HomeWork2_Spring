@@ -9,6 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
+import org.springframework.data.domain.Page;
 
 import java.net.URI;
 import java.util.List;
@@ -33,7 +34,13 @@ public class CustomerRestController {
         Customer customer = customerService.getCustomerById(customerId);
         return ResponseEntity.ok(customer);
     }
-
+    @GetMapping("/getCustomer")
+    public ResponseEntity<Page<Customer>> getAllUsers(
+            @RequestParam(defaultValue = "0") int page,
+            @RequestParam(defaultValue = "10") int size) {
+        Page<Customer> users = customerService.getAllCustomers(page, size);
+        return ResponseEntity.ok(users);
+    }
 
     @GetMapping("/addCustomer")
     public ResponseEntity<Customer> addCustomer(@RequestBody Customer customer) {
