@@ -8,7 +8,7 @@ public enum Currency {
     UAH("UAH"),
     CHF("CHF"),
     GBP("GBP");
-    private String value;
+    private final String value;
     Currency(String value) {
         this.value = value;
     }

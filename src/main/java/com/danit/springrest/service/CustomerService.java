@@ -1,14 +1,16 @@
 package com.danit.springrest.service;
 
 import com.danit.springrest.enums.Currency;
+import com.danit.springrest.model.Account;
 import com.danit.springrest.model.Customer;
 import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
 
 import java.util.List;
 
 public interface CustomerService {
     List<Customer> getAllCustomers();
-    Page<Customer> getAllCustomers(int page, int size);
+    Page<Customer> getAllCustomers(PageRequest pageRequest);
     Customer getCustomerById(Long customerId);
     Customer addCustomer(Customer customer);
     Customer createCustomer(String name, String email, int age);

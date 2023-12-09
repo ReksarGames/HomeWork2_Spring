@@ -27,9 +27,14 @@ public class DefaultCustomerService implements CustomerService {
     }
 
     @Override
-    public Page<Customer> getAllCustomers(int page, int size) {
-        return customerRepository.findAll(PageRequest.of(page, size));
+    public Page<Customer> getAllCustomers(PageRequest pageRequest) {
+        return customerRepository.findAll(pageRequest);
     }
+
+//    @Override
+//    public Page<Customer> getAllCustomers(int page, int size) {
+//        return customerRepository.findAll(PageRequest.of(page, size));
+//    }
 
     @Override
     public Customer getCustomerById(Long customerId) {

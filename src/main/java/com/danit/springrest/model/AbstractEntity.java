@@ -10,7 +10,7 @@ import java.util.Date;
 
 @Getter
 @Setter
-//@MappedSuperclass TODO: Выводится ошибка
+//@MappedSuperclass // TODO: Если оставить включенным выводится ошибка
 public class AbstractEntity implements Serializable{
 
     @Id

@@ -6,6 +6,7 @@ import com.danit.springrest.model.Customer;
 import com.danit.springrest.service.CustomerService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
@@ -35,11 +36,11 @@ public class CustomerRestController {
         return ResponseEntity.ok(customer);
     }
     @GetMapping("/getCustomer")
-    public ResponseEntity<Page<Customer>> getAllUsers(
+    public Page<Customer> getAllUsers(
             @RequestParam(defaultValue = "0") int page,
             @RequestParam(defaultValue = "10") int size) {
-        Page<Customer> users = customerService.getAllCustomers(page, size);
-        return ResponseEntity.ok(users);
+        PageRequest pageRequest = PageRequest.of(page, size);
+        return customerService.getAllCustomers(pageRequest);
     }
 
     @GetMapping("/addCustomer")

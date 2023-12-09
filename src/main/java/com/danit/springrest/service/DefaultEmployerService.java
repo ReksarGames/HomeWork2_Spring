@@ -2,6 +2,8 @@ package com.danit.springrest.service;
 
 import com.danit.springrest.dao.EmployerRepository;
 import com.danit.springrest.model.Employer;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Service;
@@ -20,6 +22,11 @@ public class DefaultEmployerService implements EmployerService {
     @Override
     public List<Employer> getAllEmployers() {
         return employerRepository.findAll();
+    }
+
+    @Override
+    public Page<Employer> getAllEmployers(PageRequest pageRequest) {
+        return employerRepository.findAll(pageRequest);
     }
 
     @Override

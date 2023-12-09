@@ -4,6 +4,8 @@ import com.danit.springrest.dao.AccountRepository;
 import com.danit.springrest.enums.Currency;
 import com.danit.springrest.model.Account;
 import com.danit.springrest.model.Customer;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -44,7 +46,10 @@ public class DefaultAccountService implements AccountService{
     public Account getAccountById(String accountId) {
         return accountRepository.findById(Long.valueOf(accountId)).orElse(null);
     }
-
+    @Override
+    public Page<Account> getAllAccounts(PageRequest pageRequest) {
+        return accountRepository.findAll(pageRequest);
+    }
     @Override
     public List<Account> getAllAccounts() {
         return accountRepository.findAll();
@@ -84,5 +89,7 @@ public class DefaultAccountService implements AccountService{
         withdrawMoney(fromAccountId, amount);
         depositMoney(toAccountId, amount);
     }
+
+
 
 }

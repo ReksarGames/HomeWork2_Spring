@@ -26,6 +26,12 @@ public class Employer extends AbstractEntity {
     @Id
     private Long id;
 
+    @ManyToMany
+    @JoinTable(name = "customeremployment",
+            joinColumns = @JoinColumn(name = "customer_id"),
+            inverseJoinColumns = @JoinColumn(name = "employer_id"))
+    private List<Customer> employedCustomers;
+
     public Employer(String name, String address) {
         this.name = name;
         this.address = address;

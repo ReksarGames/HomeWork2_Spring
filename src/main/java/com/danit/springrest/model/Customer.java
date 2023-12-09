@@ -32,7 +32,7 @@ public class Customer extends AbstractEntity {
     private int age;
 
     @OneToMany
-    @JoinColumn(name = "CUSTOMER_ID")
+    @JoinColumn(name = "customer_id")
     private List<Account> accounts;
 
     @ManyToMany(cascade = {
@@ -42,14 +42,14 @@ public class Customer extends AbstractEntity {
             CascadeType.PERSIST})
 
 
-    @JoinTable(name = "CUSTOMEREMPLOYMENT",
+    @JoinTable(name = "customeremployment",
             joinColumns = @JoinColumn(name = "customer_id"),
             inverseJoinColumns = @JoinColumn(name = "employer_id"))
     private List<Employer> employers;
 
 
     @ManyToOne
-    @JoinColumn(name = "employer_id")
+    //@JoinColumn(name = "employer_id")
     private Employer employer;
 
     public Customer(String name, String email, int age) {

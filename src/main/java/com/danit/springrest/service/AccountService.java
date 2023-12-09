@@ -3,6 +3,8 @@ package com.danit.springrest.service;
 import com.danit.springrest.enums.Currency;
 import com.danit.springrest.model.Account;
 import com.danit.springrest.model.Customer;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
 
 import java.util.List;
 
@@ -17,4 +19,5 @@ public interface AccountService {
     void withdrawMoney(String accountId, double amount);
     void transferMoney(String fromAccountId, String toAccountId, double amount);
 
+    Page<Account> getAllAccounts(PageRequest pageRequest);
 }
